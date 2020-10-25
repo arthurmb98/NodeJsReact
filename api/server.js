@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/empresa.routes.js")(app);
 require("./app/routes/fornecedor.routes.js")(app);
+require("./app/routes/vinculo.routes.js")(app);
 
 // set port, listen for requests
 app.listen(3001, () => {

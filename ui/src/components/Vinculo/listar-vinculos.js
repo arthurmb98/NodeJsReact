@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import BusinessIcon from '@material-ui/icons/Business';
+import GroupIcon from '@material-ui/icons/Group';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -14,13 +14,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import Toolbar from '@material-ui/core/Toolbar';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import Vinculo from './vinculo';
 
-import Empresa from './empresa';
-
-import { getEmpresas, deleteEmpresa } from '../../Server';
+import { getVinculos, deleteVinculo } from '../../Server';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,89 +40,58 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function ListarEmpresas() {
-  const [empresaState, setEmpresaState] = useState();
-  const [modelState, setmodelState] = useState();
+export default function ListarVinculos() {
+  const [vinculoState, setVinculoState] = useState();
 
   useEffect(() => {
-    getEmpresas().then(data => setEmpresaState(data));
-
-    setmodelState({
-      nome: "",
-      uf: "",
-      cnpj: ""
-    });
+    getVinculos().then(data => setVinculoState(data));
   }, []);
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const listItems = empresaState != null ? empresaState.map((item, index) =>
+
+  const lista = vinculoState != null ? vinculoState.map((item, index) =>
+
     <ListItem key={index.toString()} className={classes.root}>
 
       <Card className={classes.root} variant="outlined">
         <CardHeader
           avatar={
             <Avatar aria-label="recipe">
-              <BusinessIcon />
+              <GroupIcon />
             </Avatar>
           }
           action={
-            <div>
-              <IconButton aria-label="edit"
-                aria-controls={"edit" + index.toString()}
-                aria-haspopup="true"
-                onClick={() => handleClickOpenEdit(item)}>
-                <EditIcon />
+            <IconButton aria-label="delete"
+              aria-controls={"delete" + index.toString()}
+              aria-haspopup="true"
+              onClick={() => { deleteVinculo(item.id).then(data => { console.log(data); window.alert("Sucesso!"); }); getVinculos().then(data => setVinculoState(data)); }}>
+              <DeleteIcon />
 
-              </IconButton>
-              <IconButton aria-label="delete"
-                aria-controls={"delete" + index.toString()}
-                aria-haspopup="true"
-                onClick={() => { deleteEmpresa(item.id).then(data => { console.log(data); window.alert("Sucesso!"); }); getEmpresas().then(data => setEmpresaState(data)); }}>
-                <DeleteIcon />
-
-              </IconButton>
-            </div>
-
-
+            </IconButton>
           }
-          title={item.nome +" - " +item.uf}
-          subheader={"CNPJ: "+ item.cnpj}
+          title={item.empresa +" - " + item.uf}
+          subheader={"Fornecedor: " + item.fornecedor}
         />
-
-
-
       </Card>
 
     </ListItem>
 
-
   ) : <div></div>;
 
   const handleClickOpen = () => {
-    setmodelState({
-      nome: "",
-      uf: "",
-      cnpj: ""
-    });
-    setOpen(true);
-  };
-
-  const handleClickOpenEdit = (modelo) => {
-    setmodelState(modelo);
     setOpen(true);
   };
 
   const handleClose = () => {
+    getVinculos().then(data => setVinculoState(data));
     setOpen(false);
-    getEmpresas().then(data => setEmpresaState(data));
-
   };
 
   return (
     <div>
       <List >
-        {listItems}
+        {lista}
       </List>
       <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
         <AddIcon />
@@ -136,11 +103,11 @@ export default function ListarEmpresas() {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Nova Empresa
+              Novo Vinculo
         </Typography>
           </Toolbar>
         </AppBar>
-        <Empresa handleClose={handleClose} model={modelState} />
+        <Vinculo handleClose={handleClose} />
       </Dialog>
 
 

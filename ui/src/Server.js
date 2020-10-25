@@ -2,7 +2,7 @@ export const apiUrl = 'http://localhost:3001';
 
 
 export const getEmpresas = async () => {
-    const _url = apiUrl+'/empresas';
+    const _url = apiUrl + '/empresas';
     var dados = [];
     await fetch(_url)
         .then((response) => response.json())
@@ -11,7 +11,7 @@ export const getEmpresas = async () => {
 }
 
 export const postEmpresa = async (model) => {
-    const _url = apiUrl+'/empresas';
+    const _url = apiUrl + '/empresas';
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,7 +25,7 @@ export const postEmpresa = async (model) => {
 }
 
 export const putEmpresa = async (model) => {
-    const _url = apiUrl+'/empresas/'+model.id;
+    const _url = apiUrl + '/empresas/' + model.id;
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -39,7 +39,7 @@ export const putEmpresa = async (model) => {
 }
 
 export const deleteEmpresa = async (id) => {
-    const _url = apiUrl+'/empresas/'+id;
+    const _url = apiUrl + '/empresas/' + id;
     const requestOptions = {
         method: 'DELETE'
     };
@@ -51,7 +51,7 @@ export const deleteEmpresa = async (id) => {
 }
 
 export const getFornecedores = async () => {
-    const _url = apiUrl+'/fornecedores';
+    const _url = apiUrl + '/fornecedores';
     var dados = [];
     await fetch(_url)
         .then((response) => response.json())
@@ -60,7 +60,7 @@ export const getFornecedores = async () => {
 }
 
 export const postFornecedor = async (model) => {
-    const _url = apiUrl+'/fornecedores';
+    const _url = apiUrl + '/fornecedores';
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ export const postFornecedor = async (model) => {
 }
 
 export const putFornecedor = async (model) => {
-    const _url = apiUrl+'/fornecedores/'+model.id;
+    const _url = apiUrl + '/fornecedores/' + model.id;
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -88,7 +88,42 @@ export const putFornecedor = async (model) => {
 }
 
 export const deleteFornecedor = async (id) => {
-    const _url = apiUrl+'/fornecedores/'+id;
+    const _url = apiUrl + '/fornecedores/' + id;
+    const requestOptions = {
+        method: 'DELETE'
+    };
+    var dados = [];
+    await fetch(_url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const getVinculos = async () => {
+    const _url = apiUrl + '/vinculos';
+    var dados = [];
+    await fetch(_url)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const postVinculo = async (model) => {
+    const _url = apiUrl + '/vinculos';
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(model)
+    };
+    var dados = [];
+    await fetch(_url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const deleteVinculo = async (id) => {
+    const _url = apiUrl + '/vinculos/' + id;
     const requestOptions = {
         method: 'DELETE'
     };

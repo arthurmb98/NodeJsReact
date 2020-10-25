@@ -7,14 +7,14 @@ module.exports = app => {
     // Retrieve all Customers
     app.get("/fornecedores", fornecedores.findAll);
   
-    // Retrieve a single Customer with customerId
-    app.get("/fornecedores/:empresaId", fornecedores.findOne);
+    // Retrieve a single Customer with fornecedorId
+    app.get("/fornecedores/:fornecedorId", fornecedores.findOne);
   
-    // Update a Customer with customerId
-    app.put("/fornecedores/:empresaId", fornecedores.update);
+    // Update a Customer with fornecedorId
+    app.put("/fornecedores/:fornecedorId", fornecedores.update);
   
-    // Delete a Customer with customerId
-    app.delete("/fornecedores/:empresaId", fornecedores.delete);
+    // Delete a Customer with fornecedorId
+    app.delete("/fornecedores/:fornecedorId", fornecedores.delete);
   
     // Create a new Customer
     app.delete("/fornecedores", fornecedores.deleteAll);

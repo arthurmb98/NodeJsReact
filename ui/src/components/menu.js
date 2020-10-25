@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 
 import ListarEmpresas from './Empresa/listar-empresas';
 import ListarFornecedores from './Fornecedor/listar-fornecedores';
+import ListarVinculos from './Vinculo/listar-vinculos';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -95,7 +96,7 @@ export default function Menu() {
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
                 <Paper style={{ maxHeight: '70vh', overflow: 'auto' }}>
-                    Vinculo item
+                    <ListarVinculos />
                 </Paper>
             </TabPanel>
         </div>

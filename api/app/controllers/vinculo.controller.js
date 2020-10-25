@@ -1,31 +1,31 @@
-const Fornecedor = require("../models/fornecedor.model.js");
+const Vinculo = require("../models/vinculo.model.js");
 
-// Create and Save a new Fornecedor
+// Create and Save a new Vinculo
 exports.create = (req, res) => {
   
 };
 
-// Retrieve all Fornecedores from the database.
+// Retrieve all Vinculos from the database.
 exports.findAll = (req, res) => {
   
 };
 
-// Find a single Fornecedor with a fornecedorId
+// Find a single Vinculo with a vinculoId
 exports.findOne = (req, res) => {
   
 };
 
-// Update a Fornecedor identified by the fornecedorId in the request
+// Update a Vinculo identified by the vinculoId in the request
 exports.update = (req, res) => {
   
 };
 
-// Delete a Fornecedor with the specified fornecedorId in the request
+// Delete a Vinculo with the specified vinculoId in the request
 exports.delete = (req, res) => {
   
 };
 
-// Delete all Fornecedores from the database.
+// Delete all Vinculos from the database.
 exports.deleteAll = (req, res) => {
   
 };
@@ -38,47 +38,44 @@ exports.create = (req, res) => {
       });
     }
   
-    // Create a Fornecedor
-    const fornecedor = new Fornecedor({
-      nome: req.body.nome,
-      email: req.body.email,
-      documento: req.body.documento,
-      rg: req.body.rg,
-      nascimento: req.body.nascimento
+    // Create a Vinculo
+    const vinculo = new Vinculo({
+      fkIdEmpresas: req.body.fkIdEmpresas,
+      fkIdFornecedores: req.body.fkIdFornecedores,
     });
   
-    // Save Fornecedor in the database
-    Fornecedor.create(fornecedor, (err, data) => {
+    // Save Vinculo in the database
+    Vinculo.create(vinculo, (err, data) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Fornecedor."
+            err.message || "Some error occurred while creating the Vinculo."
         });
       else res.send(data);
     });
   };
 
   exports.findAll = (req, res) => {
-    Fornecedor.getAll((err, data) => {
+    Vinculo.getAll((err, data) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving fornecedores."
+            err.message || "Some error occurred while retrieving vinculos."
         });
       else res.send(data);
     });
   };
 
   exports.findOne = (req, res) => {
-    Fornecedor.findById(req.params.fornecedorId, (err, data) => {
+    Vinculo.findById(req.params.vinculoId, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Fornecedor with id ${req.params.fornecedorId}.`
+            message: `Not found Vinculo with id ${req.params.vinculoId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving Fornecedor with id " + req.params.fornecedorId
+            message: "Error retrieving Vinculo with id " + req.params.vinculoId
           });
         }
       } else res.send(data);
@@ -92,18 +89,18 @@ exports.create = (req, res) => {
         message: "Content can not be empty!"
       });
     }
-    Fornecedor.updateById(
-      req.params.fornecedorId,
-      new Fornecedor(req.body),
+    Vinculo.updateById(
+      req.params.vinculoId,
+      new Vinculo(req.body),
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not found Fornecedor with id ${req.params.fornecedorId}.`
+              message: `Not found Vinculo with id ${req.params.vinculoId}.`
             });
           } else {
             res.status(500).send({
-              message: "Error updating Fornecedor with id " + req.params.fornecedorId
+              message: "Error updating Vinculo with id " + req.params.vinculoId
             });
           }
         } else res.send(data);
@@ -112,28 +109,28 @@ exports.create = (req, res) => {
   };
 
   exports.delete = (req, res) => {
-    Fornecedor.remove(req.params.fornecedorId, (err, data) => {
+    Vinculo.remove(req.params.vinculoId, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Fornecedor with id ${req.params.fornecedorId}.`
+            message: `Not found Vinculo with id ${req.params.vinculoId}.`
           });
         } else {
           res.status(500).send({
-            message: "Could not delete Fornecedor with id " + req.params.fornecedorId
+            message: "Could not delete Vinculo with id " + req.params.vinculoId
           });
         }
-      } else res.send({ message: `Fornecedor was deleted successfully!` });
+      } else res.send({ message: `Vinculo was deleted successfully!` });
     });
   };
 
   exports.deleteAll = (req, res) => {
-    Fornecedor.removeAll((err, data) => {
+    Vinculo.removeAll((err, data) => {
       if (err)
         res.status(500).send({
           message:
             err.message || "Some error occurred while removing all customers."
         });
-      else res.send({ message: `All Fornecedores were deleted successfully!` });
+      else res.send({ message: `All Vinculos were deleted successfully!` });
     });
   };

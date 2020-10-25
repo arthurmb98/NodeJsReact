@@ -145,6 +145,7 @@ export default function Fornecedor(props) {
 
   function onSubmit(data) {
     data.documento = data.documento.toString();
+    data.rg = data.rg.toString();
     // EDITA
     if (props.model != null && props.model.id != null) {
       data.id = props.model.id;
