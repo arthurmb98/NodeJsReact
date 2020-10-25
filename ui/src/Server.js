@@ -49,3 +49,52 @@ export const deleteEmpresa = async (id) => {
         .then((data) => { console.log('This is your data', data); dados = data });
     return dados;
 }
+
+export const getFornecedores = async () => {
+    const _url = apiUrl+'/fornecedores';
+    var dados = [];
+    await fetch(_url)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const postFornecedor = async (model) => {
+    const _url = apiUrl+'/fornecedores';
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(model)
+    };
+    var dados = [];
+    await fetch(_url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const putFornecedor = async (model) => {
+    const _url = apiUrl+'/fornecedores/'+model.id;
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(model)
+    };
+    var dados = [];
+    await fetch(_url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}
+
+export const deleteFornecedor = async (id) => {
+    const _url = apiUrl+'/fornecedores/'+id;
+    const requestOptions = {
+        method: 'DELETE'
+    };
+    var dados = [];
+    await fetch(_url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => { console.log('This is your data', data); dados = data });
+    return dados;
+}

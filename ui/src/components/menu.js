@@ -6,10 +6,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import BusinessIcon from '@material-ui/icons/Business';
+import PersonIcon from '@material-ui/icons/Person';
+import GroupIcon from '@material-ui/icons/Group';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 
 import ListarEmpresas from './Empresa/listar-empresas';
+import ListarFornecedores from './Fornecedor/listar-fornecedores';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -76,8 +79,8 @@ export default function Menu() {
                     aria-label="action tabs example"
                 >
                     <Tab label="Empresas" {...a11yProps(0)} icon={<BusinessIcon />} />
-                    <Tab label="Fornecedores" {...a11yProps(1)} icon={<BusinessIcon />} />
-                    <Tab label="Vinculos" {...a11yProps(2)} icon={<BusinessIcon />} />
+                    <Tab label="Fornecedores" {...a11yProps(1)} icon={<PersonIcon />} />
+                    <Tab label="Vinculos" {...a11yProps(2)} icon={<GroupIcon />} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} dir={theme.direction}>
@@ -87,7 +90,7 @@ export default function Menu() {
             </TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}>
                 <Paper style={{ maxHeight: '70vh', overflow: 'auto' }}>
-                    Fornecedor item
+                    <ListarFornecedores />
                 </Paper>
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>

@@ -6,10 +6,16 @@ import Grid from '@material-ui/core/Grid';
 import BusinessIcon from '@material-ui/icons/Business';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 import { useForm } from "react-hook-form";
 
 import { postEmpresa, putEmpresa } from '../../Server';
+
+import { estados } from './estados';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,13 +38,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Empresa(props) {
   const classes = useStyles();
 
+  const [estado, setEstado] = React.useState('');
+
+  React.useEffect(() => {
+    if (props.model != null)
+      setEstado(props.model.uf);
+  }, []);
+
+  const handleChange = (event) => {
+    setEstado(event.target.value);
+  };
+
   const { register, handleSubmit, errors } = useForm({
     defaultValues: props.model
   });
 
   function onSubmit(data) {
+    data.uf = estado;
     // EDITA
-    if (props != null && props.model.id != null) {
+    if (props.model != null && props.model.id != null) {
       data.id = props.model.id;
       putEmpresa(data).then(data => { console.log(data); window.alert("Sucesso!"); });
       props.handleClose();
@@ -58,20 +76,23 @@ export default function Empresa(props) {
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <FormControl variant="outlined" required
+                fullWidth id="uf"
                 name="uf"
-                variant="outlined"
-                required
-                fullWidth
-                id="uf"
-                label="UF"
-                autoFocus
-                inputRef={register({
+                ref={register({
                   required: true,
                   maxLength: 2
-                })}
-
-              />
+                })}>
+                <InputLabel id="ufLabel">Estado</InputLabel>
+                <Select
+                  labelId="uf"
+                  id="uf"
+                  value={estado}
+                  onChange={handleChange}
+                >
+                  {estados.map((item) => <MenuItem key={item.Sigla} value={item.Sigla}>{item.Nome}</MenuItem>)}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -98,6 +119,7 @@ export default function Empresa(props) {
                 id="cnpj"
                 label="CNPJ"
                 name="cnpj"
+                type="number"
                 maxLength="15"
                 autoComplete="cnpj"
                 inputRef={register({
